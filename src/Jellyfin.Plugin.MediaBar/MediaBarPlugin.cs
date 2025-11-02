@@ -10,7 +10,7 @@ namespace Jellyfin.Plugin.MediaBar
     {
         public override Guid Id => Guid.Parse("1d933e89-a392-4562-b2fc-e750ce83d8c2");
 
-        public override string Name => "Media Bar";
+        public override string Name => "Media Bar (Remove Streaming Items)";
 
         public static MediaBarPlugin Instance { get; private set; } = null!;
         
