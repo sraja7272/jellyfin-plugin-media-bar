@@ -559,11 +559,13 @@ const ApiUtils = {
       const data = await response.json();
       const items = data.Items || [];
 
+      const itemsWithoutStreaming = items.filter(item => item.LocationType !== "Remote")
+
       console.log(
-        `Successfully fetched ${items.length} random items from server`
+        `Successfully fetched ${itemsWithoutStreaming.length} random items from server`
       );
 
-      return items.map((item) => item.Id);
+      return itemsWithoutStreaming.map((item) => item.Id);
     } catch (error) {
       console.error("Error fetching item IDs:", error);
       return [];
