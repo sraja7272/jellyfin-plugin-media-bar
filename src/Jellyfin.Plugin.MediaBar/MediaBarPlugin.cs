@@ -8,7 +8,7 @@ namespace Jellyfin.Plugin.MediaBar
 {
     public class MediaBarPlugin : BasePlugin<PluginConfiguration>, IHasPluginConfiguration, IHasWebPages
     {
-        public override Guid Id => Guid.Parse("08f615ea-2107-4f04-89cc-091035f54448");
+        public override Guid Id => Guid.Parse("1d933e89-a392-4562-b2fc-e750ce83d8c2");
 
         public override string Name => "Media Bar";
 
