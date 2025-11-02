@@ -1,0 +1,21 @@
+[
+    {
+        "guid": "08f615ea-2107-4f04-89cc-091035f54448",
+        "name": "Media Bar (Remove Streaming Items)",
+        "description": "A beautiful featured content carousel for Jellyfin that displays media items in a slideshow format on the home page",
+        "overview": "Featured content carousel with slideshow capabilities",
+        "owner": "Shaheer",
+        "category": "General",
+        "versions": [
+            {
+                "version": "2.4.1.0",
+                "changelog": "Updated to support 10.11.1\n\n- Support for Jellyfin 10.11.1\n- Featured content carousel\n- Custom playlist support\n- Configurable slideshow settings\n- Mobile and desktop responsive design",
+                "targetAbi": "10.11.0.0",
+                "sourceUrl": "https://github.com/sraja7272/jellyfin-plugin-media-bar/releases/download/v2.4.1.0/jellyfin-plugin-mediabar_2.4.1.0.zip",
+                "checksum": "5d12279b762b18daea0f8824cee06c34",
+                "timestamp": "2025-11-02T00:00:00Z"
+            }
+        ]
+    }
+]
+
