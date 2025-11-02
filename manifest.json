@@ -12,7 +12,7 @@
                 "changelog": "Updated to support 10.11.1\n\n- Support for Jellyfin 10.11.1\n- Featured content carousel\n- Custom playlist support\n- Configurable slideshow settings\n- Mobile and desktop responsive design",
                 "targetAbi": "10.11.0.0",
                 "sourceUrl": "https://github.com/sraja7272/jellyfin-plugin-media-bar/releases/download/v2.4.1.0/jellyfin-plugin-mediabar_2.4.1.0.zip",
-                "checksum": "ef1bd123ade4854caa09e18e346aa9ac",
+                "checksum": "483b6c0ef69dd22c9d8682e3d7b390b5",
                 "timestamp": "2025-11-02T00:00:00Z"
             }
         ]
