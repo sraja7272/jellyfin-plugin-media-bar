@@ -558,11 +558,12 @@ const ApiUtils = {
 
       const data = await response.json();
       const items = data.Items || [];
+      console.log(`Successfully fetched ${items.length} random items from server`)
 
       const itemsWithoutStreaming = items.filter(item => item.LocationType !== "Remote")
 
       console.log(
-        `Successfully fetched ${itemsWithoutStreaming.length} random items from server`
+        `Filtered out streaming items with a remaining count of: ${itemsWithoutStreaming.length}`
       );
 
       return itemsWithoutStreaming.map((item) => item.Id);
