@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Jellyfin.Plugin.MediaBar.Attributes;
 
-[assembly: AssemblyCompany("IAmParadox27")]
+[assembly: AssemblyCompany("Shaheer")]
 [assembly: AssemblyProduct("Jellyfin.Plugins.MediaBar")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyTitle("Jellyfin.Plugins.MediaBar")]
