@@ -24,19 +24,10 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
-      - name: Setup GitHub CLI
-        uses: actions4gh/setup-gh@v1
-        with:
-          gh-version: latest
-
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Authenticate with GitHub
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
       - name: Make release script executable
         run: chmod +x release.sh
@@ -45,5 +36,5 @@ jobs:
         run: |
           echo "y" | ./release.sh
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
