@@ -42,6 +42,24 @@ jobs:
         env:
           PREVIEW_ONLY: "true"
 
+      - name: Prompt for manual release
+        run: |
+          echo ""
+          echo "═══════════════════════════════════════════════════════════════"
+          echo "📋 PREVIEW COMPLETE - MANUAL ACTION REQUIRED"
+          echo "═══════════════════════════════════════════════════════════════"
+          echo ""
+          echo "Please review the release information above."
+          echo ""
+          echo "To proceed with the release:"
+          echo "1. Go to the Actions tab: https://github.com/${{ github.repository }}/actions"
+          echo "2. Select the 'Release' workflow"
+          echo "3. Click 'Run workflow' button"
+          echo "4. Select 'yes' from the 'Confirm release' dropdown"
+          echo "5. Click 'Run workflow'"
+          echo ""
+          echo "═══════════════════════════════════════════════════════════════"
+
   release:
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch'
