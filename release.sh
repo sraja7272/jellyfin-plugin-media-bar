@@ -60,13 +60,23 @@ echo "----------------------------------------"
 echo ""
 
 # Confirm before proceeding
-echo "Continue with this release? (y/n)"
-read -r CONFIRM
-if [[ ! $CONFIRM =~ ^[Yy]$ ]]; then
-    echo "Release cancelled."
+if [ "$PREVIEW_ONLY" = "true" ]; then
+    echo "Preview mode - stopping here. Approve the workflow to continue with the release."
     exit 0
+elif [ -z "$CI" ]; then
+    # Interactive mode (local execution)
+    echo "Continue with this release? (y/n)"
+    read -r CONFIRM
+    if [[ ! $CONFIRM =~ ^[Yy]$ ]]; then
+        echo "Release cancelled."
+        exit 0
+    fi
+    echo ""
+else
+    # CI mode - already approved via environment, proceed automatically
+    echo "Running in CI environment - proceeding with release"
+    echo ""
 fi
-echo ""
 
 # Check if gh CLI is installed
 if ! command -v gh &> /dev/null; then

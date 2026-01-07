@@ -4,10 +4,32 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      confirm_release:
+        description: 'Type "yes" to confirm release after reviewing preview'
+        required: false
+        default: 'no'
 
 jobs:
-  release:
+  preview:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Make release script executable
+        run: chmod +x release.sh
+
+      - name: Show release preview
+        run: ./release.sh
+        env:
+          PREVIEW_ONLY: "true"
+
+  release:
+    needs: preview
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.confirm_release == 'yes'
     permissions:
       contents: write
       pull-requests: read
@@ -24,6 +46,9 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
+      - name: Restore NuGet packages
+        run: dotnet restore src/Jellyfin.Plugin.MediaBar/Jellyfin.Plugin.MediaBar.csproj
+
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
@@ -33,8 +58,7 @@ jobs:
         run: chmod +x release.sh
 
       - name: Run release script
-        run: |
-          echo "y" | ./release.sh
+        run: ./release.sh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
