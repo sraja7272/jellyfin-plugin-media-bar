@@ -7,13 +7,29 @@ on:
   workflow_dispatch:
     inputs:
       confirm_release:
-        description: 'Type "yes" to confirm release after reviewing preview'
-        required: false
+        description: 'Confirm release after reviewing preview'
+        required: true
+        type: choice
+        options:
+          - 'no'
+          - 'yes'
         default: 'no'
 
 jobs:
+  check-input:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Show input value
+        run: |
+          echo "Confirm release input: ${{ github.event.inputs.confirm_release }}"
+          if [ "${{ github.event.inputs.confirm_release }}" != "yes" ]; then
+            echo "⚠️ Release will be skipped. Make sure to select 'yes' in the workflow_dispatch inputs."
+          fi
+
   preview:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,9 +43,8 @@ jobs:
           PREVIEW_ONLY: "true"
 
   release:
-    needs: preview
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.confirm_release == 'yes'
+    if: github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
       pull-requests: read
@@ -41,6 +56,19 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
+      - name: Show release preview
+        run: chmod +x release.sh && ./release.sh
+        env:
+          PREVIEW_ONLY: "true"
+
+      - name: Check confirmation
+        run: |
+          if [ "${{ github.event.inputs.confirm_release }}" != "yes" ]; then
+            echo "❌ Release not confirmed. Please re-run the workflow and select 'yes' to proceed."
+            exit 1
+          fi
+          echo "✅ Release confirmed. Proceeding with release..."
+
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
@@ -49,13 +77,6 @@ jobs:
       - name: Restore NuGet packages
         run: dotnet restore src/Jellyfin.Plugin.MediaBar/Jellyfin.Plugin.MediaBar.csproj
 
-      - name: Configure Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Make release script executable
-        run: chmod +x release.sh
 
       - name: Run release script
         run: ./release.sh
