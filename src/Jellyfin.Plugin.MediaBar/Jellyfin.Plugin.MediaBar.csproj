@@ -20,7 +20,7 @@
         <PackageReference Include="Jellyfin.Common" Version="$(JellyfinNugetVersion)" />
         <PackageReference Include="Jellyfin.Data" Version="$(JellyfinNugetVersion)" />
 
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     </ItemGroup>
     
     <!-- 10.10.7 Specific Code from non 10.10.7 builds -->
