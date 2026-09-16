@@ -90,7 +90,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '10.0.x'
 
       - name: Restore NuGet packages
         run: dotnet restore src/Jellyfin.Plugin.MediaBar/Jellyfin.Plugin.MediaBar.csproj
